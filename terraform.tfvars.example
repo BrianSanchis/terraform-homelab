@@ -1,12 +1,7 @@
-pve1_endpoint  = "https://10.20.10.1:8006"
-pve1_api_token = "root@pam!terraform=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-pve1_node_name = "pve1"
+proxmox_endpoint  = "https://10.20.10.1:8006"
+proxmox_api_token = "root@pam!terraform=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-pve2_endpoint  = "https://10.20.10.2:8006"
-pve2_api_token = "root@pam!terraform=yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy"
-pve2_node_name = "pve2"
-
-storage        = "local-lvm"
+storage         = "local-lvm"
 network_bridge  = "vmbr0"
 network_gateway = "10.20.10.1"
 network_prefix  = "10.20.10"

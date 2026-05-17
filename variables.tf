@@ -1,35 +1,12 @@
-variable "pve1_endpoint" {
-  description = "URL de l'API du node 1 (ex: https://10.20.10.1:8006)"
+variable "proxmox_endpoint" {
+  description = "URL de l'API Proxmox (ex: https://10.20.10.1:8006)"
   type        = string
 }
 
-variable "pve1_api_token" {
-  description = "Token API du node 1 au format user@realm!tokenid=secret"
+variable "proxmox_api_token" {
+  description = "Token API Proxmox au format user@realm!tokenid=secret"
   type        = string
   sensitive   = true
-}
-
-variable "pve1_node_name" {
-  description = "Nom du node 1 (vérifier avec: pvesh get /nodes)"
-  type        = string
-  default     = "pve"
-}
-
-variable "pve2_endpoint" {
-  description = "URL de l'API du node 2 (ex: https://10.20.10.2:8006)"
-  type        = string
-}
-
-variable "pve2_api_token" {
-  description = "Token API du node 2 au format user@realm!tokenid=secret"
-  type        = string
-  sensitive   = true
-}
-
-variable "pve2_node_name" {
-  description = "Nom du node 2 (vérifier avec: pvesh get /nodes)"
-  type        = string
-  default     = "pve"
 }
 
 variable "lxc_template" {

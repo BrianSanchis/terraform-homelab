@@ -6,9 +6,8 @@ locals {
 
 # Load balancer sur pve1
 resource "proxmox_virtual_environment_container" "lb" {
-  provider      = proxmox.pve1
   description   = "Load Balancer nginx"
-  node_name     = var.pve1_node_name
+  node_name     = "pve1"
   vm_id         = 200
   tags          = ["lb", "terraform"]
   start_on_boot = true
@@ -55,9 +54,8 @@ resource "proxmox_virtual_environment_container" "lb" {
 
 # Web server 1 sur pve1
 resource "proxmox_virtual_environment_container" "web1" {
-  provider      = proxmox.pve1
   description   = "Web server 1"
-  node_name     = var.pve1_node_name
+  node_name     = "pve1"
   vm_id         = 201
   tags          = ["web", "terraform"]
   start_on_boot = true
@@ -104,9 +102,8 @@ resource "proxmox_virtual_environment_container" "web1" {
 
 # Web server 2 sur pve2
 resource "proxmox_virtual_environment_container" "web2" {
-  provider      = proxmox.pve2
   description   = "Web server 2"
-  node_name     = var.pve2_node_name
+  node_name     = "pve2"
   vm_id         = 202
   tags          = ["web", "terraform"]
   start_on_boot = true
@@ -150,3 +147,102 @@ resource "proxmox_virtual_environment_container" "web2" {
     size         = 8
   }
 }
+
+
+
+# test1 sur pve1
+resource "proxmox_virtual_environment_container" "test1" {
+  description   = "test1"
+  node_name     = "pve1"
+  vm_id         = 203
+  tags          = ["web", "terraform"]
+  start_on_boot = true
+
+  initialization {
+    hostname = "test1"
+
+    ip_config {
+      ipv4 {
+        address = "10.20.10.203/24"
+        gateway = var.network_gateway
+      }
+    }
+
+    user_account {
+      keys     = [var.ssh_public_key]
+      password = var.root_password
+    }
+  }
+
+  network_interface {
+    name   = "eth0"
+    bridge = var.network_bridge
+  }
+
+  operating_system {
+    template_file_id = var.lxc_template
+    type             = "debian"
+  }
+
+  cpu {
+    cores = 1
+  }
+
+  memory {
+    dedicated = 512
+  }
+
+  disk {
+    datastore_id = var.storage
+    size         = 8
+  }
+}
+
+# test2 sur pve2
+resource "proxmox_virtual_environment_container" "test2" {
+  description   = "test2"
+  node_name     = "pve2"
+  vm_id         = 204
+  tags          = ["web", "terraform"]
+  start_on_boot = true
+
+  initialization {
+    hostname = "test2"
+
+    ip_config {
+      ipv4 {
+        address = "10.20.10.204/24"
+        gateway = var.network_gateway
+      }
+    }
+
+    user_account {
+      keys     = [var.ssh_public_key]
+      password = var.root_password
+    }
+  }
+
+  network_interface {
+    name   = "eth0"
+    bridge = var.network_bridge
+  }
+
+  operating_system {
+    template_file_id = var.lxc_template
+    type             = "debian"
+  }
+
+  cpu {
+    cores = 1
+  }
+
+  memory {
+    dedicated = 512
+  }
+
+  disk {
+    datastore_id = var.storage
+    size         = 8
+  }
+}
+
